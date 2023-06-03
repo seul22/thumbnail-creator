@@ -1,0 +1,91 @@
+body {
+  background-color: #f1f1f1;
+}
+
+p {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+#title-area {
+  text-align: center;
+  margin: 22px 0;
+  color: #505050;
+}
+
+#btn-area {
+  display: block;
+  margin-top: 20px;
+  margin-right: 80px;
+  text-align: end;
+}
+
+#thumbnail-div {
+  margin: 20px 80px;
+}
+
+#thumbnail-area {
+  display: block;
+  padding: 20px;
+  height: 500px;
+  text-align: center;
+  background: linear-gradient(#24243e, #2c5364);
+}
+
+#text-area {
+  display: block;
+}
+
+#img-area {
+  width: 155px;
+  height: 155px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+#img-div {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+}
+
+#placeholder-img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#heading {
+  font-size: 60px;
+  border: 0px;
+  text-align: center;
+  font-weight: 600;
+  width: 90%;
+  background: unset;
+  color: white;
+  line-height: 0.5;
+}
+
+#subheading {
+  font-size: 30px;
+  border: 0px;
+  text-align: center;
+  font-weight: 600;
+  width: 80%;
+  background: unset;
+  color: white;
+  line-height: 0.5;
+}
+
+input:focus {
+  outline: none;
+  border-bottom: 5px solid white;
+  box-shadow: 0 2px 0 0;
+}
+
+input::placeholder {
+  color: rgb(179, 179, 179);
+}
