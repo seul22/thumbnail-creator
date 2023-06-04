@@ -16,12 +16,12 @@ p {
 #btn-area {
   display: block;
   margin-top: 20px;
-  margin-right: 80px;
+  margin-right: 150px;
   text-align: end;
 }
 
 #thumbnail-div {
-  margin: 20px 80px;
+  margin: 20px 150px;
 }
 
 #thumbnail-area {
@@ -59,7 +59,7 @@ p {
 }
 
 #heading {
-  font-size: 60px;
+  font-size: 70px;
   border: 0px;
   text-align: center;
   font-weight: 600;
@@ -70,7 +70,7 @@ p {
 }
 
 #subheading {
-  font-size: 30px;
+  font-size: 40px;
   border: 0px;
   text-align: center;
   font-weight: 600;
