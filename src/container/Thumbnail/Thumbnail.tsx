@@ -37,9 +37,18 @@ const Thumbnail = () => {
       }
     };
 
+    const handleClick = (e: any) => {
+      if (e.target.id !== "img-div") {
+        const imgAreaElement: any = document.querySelector("#img-area");
+        imgAreaElement.style.borderWidth = "0px";
+      }
+    };
+
+    document.addEventListener("click", handleClick);
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("click", handleClick);
     };
   }, [clickImgFlag]);
 
