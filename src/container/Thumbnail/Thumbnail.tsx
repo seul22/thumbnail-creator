@@ -157,6 +157,7 @@ const Thumbnail = () => {
       <div id="btn-area">
         <button
           type="button"
+          id="btn-init"
           className="btn btn-secondary"
           style={{ marginRight: "5px" }}
           onClick={clickInitBtn}
@@ -165,6 +166,7 @@ const Thumbnail = () => {
         </button>
         <button
           type="button"
+          id="btn-random"
           className="btn btn-light"
           style={{ marginRight: "5px" }}
           onClick={clickBackgroundClr}
@@ -173,6 +175,7 @@ const Thumbnail = () => {
         </button>
         <button
           type="button"
+          id="btn-save"
           className="btn btn-primary"
           onClick={clickSaveBtn}
         >
