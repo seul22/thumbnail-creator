@@ -220,6 +220,7 @@ const Thumbnail = () => {
               placeholder="제목을 입력하세요"
               onChange={changeText}
               value={heading}
+              maxLength={20}
             />
             <input
               type="text"
@@ -228,6 +229,7 @@ const Thumbnail = () => {
               placeholder="소제목을 입력하세요"
               onChange={changeText}
               value={subheading}
+              maxLength={30}
             />
           </div>
         </div>
