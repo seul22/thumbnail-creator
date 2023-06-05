@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import "./Thumbnail.css";
 import { toPng } from "html-to-image";
-import placeholder from "../../assets/placeholder_img.png";
-import random from "../../assets/arrow.png";
+import placeholderImg from "../../assets/placeholder_img.png";
+import randomImg from "../../assets/arrow.png";
+import BackgroundColors from "./type/ColorPairs";
 
 const Thumbnail = () => {
-  const [img, setImg]: any = useState(null);
-  const [clickImgFlag, setClickImgFlag] = useState(false);
-  const [heading, setHeading] = useState("");
-  const [subheading, setSubheading] = useState("");
+  const [img, setImg] = useState<any>(null);
+  const [clickImgFlag, setClickImgFlag] = useState<boolean>(false);
+  const [heading, setHeading] = useState<string>("");
+  const [subheading, setSubheading] = useState<string>("");
 
-  const backgroundColors = [
+  /** 배경 linear-gradient 색상 list */
+  const backgroundColors: BackgroundColors = [
     ["#24243e", "#2c5364"],
     ["#8360c3", "#2ebf91"],
     ["#009FFF", "#ec2F4B"],
@@ -26,14 +28,10 @@ const Thumbnail = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: any) => {
-      console.log(e.keyCode);
-      if (e.keyCode === 46) {
-        //esc
-        console.log(clickImgFlag);
-        if (clickImgFlag) {
-          setImg(null);
-          setClickImgFlag(false);
-        }
+      if (e.keyCode === 46 && clickImgFlag) {
+        //delete
+        setImg(null);
+        setClickImgFlag(false);
       }
     };
 
@@ -53,47 +51,59 @@ const Thumbnail = () => {
   }, [clickImgFlag]);
 
   /** init 버튼 클릭 */
-  const clickInitBtn = () => {
+  const clickInitBtn = (): void => {
     setImg(null);
     setClickImgFlag(false);
     setHeading("");
     setSubheading("");
   };
 
-  const clickBackgroundClr = () => {
-    let number = Math.floor(Math.random() * backgroundColors.length);
+  /** random 버튼 클릭 */
+  const clickChangeBackgroundBtn = (): void => {
+    let index: number = Math.floor(Math.random() * backgroundColors.length);
 
-    const thumbnailArea: any = document.querySelector("#thumbnail-area");
-    thumbnailArea.style.background = `linear-gradient(${backgroundColors[number][0]}, ${backgroundColors[number][1]})`;
+    const thumbnailArea: HTMLElement | null =
+      document.querySelector("#thumbnail-area");
+    if (thumbnailArea) {
+      thumbnailArea.style.background = `linear-gradient(${backgroundColors[index][0]}, ${backgroundColors[index][1]})`;
+    }
   };
 
   /** save 버튼 클릭 */
-  const clickSaveBtn = () => {
-    const thumbnail: any = document.querySelector("#thumbnail-area");
-    console.log(thumbnail);
+  const clickSaveBtn = (): void => {
+    const thumbnail: HTMLElement | null =
+      document.querySelector("#thumbnail-area");
 
-    // div 내부의 input, img 요소를 가져옴
-    const headingElement = thumbnail.querySelector("#heading");
-    const subheadingElement = thumbnail.querySelector("#subheading");
-    const imgAreaElement = thumbnail.querySelector("#img-area");
+    if (thumbnail) {
+      // div 내부의 input, img 요소를 가져옴
+      const headingElement: HTMLElement | null =
+        thumbnail.querySelector("#heading");
+      const subheadingElement: HTMLElement | null =
+        thumbnail.querySelector("#subheading");
+      const imgAreaElement: HTMLElement | null =
+        thumbnail.querySelector("#img-area");
 
-    // input 요소의 값이 비어있으면 visibility:hidden
-    if (heading === "") {
-      headingElement.style.visibility = "hidden";
-    }
-    if (subheading === "") {
-      subheadingElement.style.visibility = "hidden";
-    }
-    if (img === null) {
-      imgAreaElement.style.visibility = "hidden";
-    }
+      if (headingElement && subheadingElement && imgAreaElement) {
+        // input 요소의 값이 비어있으면 visibility:hidden
+        if (heading === "") {
+          headingElement.style.visibility = "hidden";
+        }
+        if (subheading === "") {
+          subheadingElement.style.visibility = "hidden";
+        }
+        if (img === null) {
+          imgAreaElement.style.visibility = "hidden";
+        }
 
-    toPng(thumbnail).then((image) => {
-      saveImg(image);
-      headingElement.style.visibility = "visible";
-      subheadingElement.style.visibility = "visible";
-      imgAreaElement.style.visibility = "visible";
-    });
+        toPng(thumbnail).then((image) => {
+          saveImg(image);
+          // 저장 후 input 요소들의 visibility를 다시 visible로 바꿈
+          headingElement.style.visibility = "visible";
+          subheadingElement.style.visibility = "visible";
+          imgAreaElement.style.visibility = "visible";
+        });
+      }
+    }
   };
 
   /** 이미지 file 선택 및 이미지 미리보기 */
@@ -105,25 +115,24 @@ const Thumbnail = () => {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        console.log(reader.result);
         setImg(reader.result);
       };
     }
   };
 
-  /** a태그로 생성한 썸네일 save */
+  /** 생성한 썸네일이미지 a태그로 save */
   const saveImg = (url: string) => {
-    var link = document.createElement("a");
+    let link: HTMLAnchorElement = document.createElement("a");
     link.href = url;
     link.download = "files";
 
     document.body.appendChild(link);
     link.click();
-
     document.body.removeChild(link);
   };
 
-  const changeText = (e: any) => {
+  /** input text change */
+  const changeText = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.id === "heading") {
       setHeading(e.target.value);
     } else {
@@ -131,14 +140,16 @@ const Thumbnail = () => {
     }
   };
 
-  /** image 클릭했을 때 */
+  /** image가 있을 때 image 클릭 */
   const clickImgArea = () => {
     setClickImgFlag(true);
-    const imgAreaElement: any = document.querySelector("#img-area");
-    console.log(imgAreaElement);
-    imgAreaElement.style.border = "2px";
-    imgAreaElement.style.borderColor = "white";
-    imgAreaElement.style.borderStyle = "dashed";
+    const imgAreaElement: HTMLElement | null =
+      document.querySelector("#img-area");
+    if (imgAreaElement) {
+      imgAreaElement.style.border = "2px";
+      imgAreaElement.style.borderColor = "white";
+      imgAreaElement.style.borderStyle = "dashed";
+    }
   };
 
   return (
@@ -146,12 +157,12 @@ const Thumbnail = () => {
       <div id="title-area">
         <p>
           Thumbnail <span style={{ color: "#8B00E5" }}>C</span>
-          <span style={{ color: "rgb(180 0 124)" }}>r</span>
+          <span style={{ color: "#B4007C" }}>r</span>
           <span style={{ color: "#F900AB" }}>e</span>
           <span style={{ color: "#FF0E72" }}>a</span>
           <span style={{ color: "#FF7E48" }}>t</span>
           <span style={{ color: "#FFC141" }}>o</span>
-          <span style={{ color: "rgb(239 225 80)" }}>r</span>
+          <span style={{ color: "#EFE150" }}>r</span>
         </p>
       </div>
       <div id="btn-area">
@@ -169,9 +180,9 @@ const Thumbnail = () => {
           id="btn-random"
           className="btn btn-light"
           style={{ marginRight: "5px" }}
-          onClick={clickBackgroundClr}
+          onClick={clickChangeBackgroundBtn}
         >
-          <img src={random} style={{ width: "23px" }}></img>
+          <img src={randomImg} style={{ width: "23px" }}></img>
         </button>
         <button
           type="button"
@@ -190,7 +201,6 @@ const Thumbnail = () => {
                 id="img-div"
                 style={{ backgroundImage: `url(${img})` }}
               ></div>
-              {/* <img id="image" src={img}></img> */}
             </div>
           )}
           {!img && (
@@ -198,10 +208,8 @@ const Thumbnail = () => {
               <label htmlFor="input-file">
                 <div
                   id="img-div"
-                  style={{ backgroundImage: `url(${placeholder})` }}
-                >
-                  {/* <img src={placeholder} id="placeholder-img" /> */}
-                </div>
+                  style={{ backgroundImage: `url(${placeholderImg})` }}
+                ></div>
               </label>
 
               <input
