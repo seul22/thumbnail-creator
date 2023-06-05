@@ -3,7 +3,7 @@ body {
 }
 
 p {
-  font-size: 3rem;
+  font-size: 50px;
   font-weight: 700;
 }
 
@@ -37,17 +37,17 @@ p {
 }
 
 #img-area {
-  width: 155px;
-  height: 155px;
+  width: 115px;
+  height: 115px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 #img-div {
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   background-size: cover;
   background-position: center;
 }

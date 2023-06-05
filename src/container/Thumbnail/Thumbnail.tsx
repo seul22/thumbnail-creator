@@ -153,7 +153,7 @@ const Thumbnail = () => {
   };
 
   return (
-    <>
+    <div className="container-sm">
       <div id="title-area">
         <p>
           Thumbnail <span style={{ color: "#8B00E5" }}>C</span>
@@ -242,7 +242,7 @@ const Thumbnail = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
