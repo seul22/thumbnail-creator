@@ -11,6 +11,22 @@
 // - it("랜덤 버튼 클릭 시 썸네일 배경색이 변경된다")
 // - it("init 버튼을 클릭했을 때 화면 내에 입력된 문자나 이미지 모두 초기화된다")
 
+const fileUpload = () => {
+  const fileName = "logo192.png"; // 테스트할 이미지 파일 이름
+
+  cy.fixture(fileName).then(($fileContent) => {
+    console.log($fileContent);
+    cy.get('input[type="file"]').attachFile(
+      {
+        fileContent: $fileContent,
+        fileName: fileName,
+        mimeType: "image/png",
+      },
+      { subjectType: "input" }
+    );
+  });
+};
+
 describe("Thumbnail Creator 앱 테스트", () => {
   beforeEach("페이지 방문", () => {
     cy.visit("/");
@@ -45,40 +61,17 @@ describe("Thumbnail Creator 앱 테스트", () => {
   });
 
   it("이미지를 선택했을 때 선택한 이미지가 화면에 나타난다", () => {
-    const fileName = "logo192.png"; // 테스트할 이미지 파일 이름
+    fileUpload();
 
-    cy.fixture(fileName).then((fileContent) => {
-      console.log(fileContent);
-      cy.get('input[type="file"]').attachFile(
-        {
-          fileContent: fileContent,
-          fileName: fileName,
-          mimeType: "image/png",
-        },
-        { subjectType: "input" }
-      );
-      cy.wait(2000); // 이미지 로딩을 기다릴 시간 (2초)
-      cy.get("#img-div").then(($div) => {
-        const backgroundImage = $div.css("background-image");
-        expect(backgroundImage).to.match(/^url\("data:image\/png;base64/);
-      });
+    cy.wait(1000); // 이미지 로딩을 기다릴 시간 (1초)
+    cy.get("#img-div").then(($div) => {
+      const backgroundImage = $div.css("background-image");
+      expect(backgroundImage).to.match(/^url\("data:image\/png;base64/);
     });
   });
 
   it("이미지 영역에 이미지가 있는 경우, 이미지를 선택하면 이미지에 border가 생긴다", () => {
-    const fileName = "logo192.png"; // 테스트할 이미지 파일 이름
-
-    cy.fixture(fileName).then((fileContent) => {
-      console.log(fileContent);
-      cy.get('input[type="file"]').attachFile(
-        {
-          fileContent: fileContent,
-          fileName: fileName,
-          mimeType: "image/png",
-        },
-        { subjectType: "input" }
-      );
-    });
+    fileUpload();
 
     cy.get("#img-area").click();
     cy.get("#img-area").should(
@@ -89,19 +82,7 @@ describe("Thumbnail Creator 앱 테스트", () => {
   });
 
   it("이미지 영역이 선택되어 있을 때, 다른 영역을 클릭하면 이미지에 border가 사라진다", () => {
-    const fileName = "logo192.png"; // 테스트할 이미지 파일 이름
-
-    cy.fixture(fileName).then((fileContent) => {
-      console.log(fileContent);
-      cy.get('input[type="file"]').attachFile(
-        {
-          fileContent: fileContent,
-          fileName: fileName,
-          mimeType: "image/png",
-        },
-        { subjectType: "input" }
-      );
-    });
+    fileUpload();
 
     cy.get("#img-area").click();
     cy.get("#heading").click();
@@ -109,19 +90,7 @@ describe("Thumbnail Creator 앱 테스트", () => {
   });
 
   it("이미지 영역에 이미지가 있는 경우, 이미지 선택 후 키보드 delete키를 눌렀을 때 이미지가 삭제된다", () => {
-    const fileName = "logo192.png"; // 테스트할 이미지 파일 이름
-
-    cy.fixture(fileName).then((fileContent) => {
-      console.log(fileContent);
-      cy.get('input[type="file"]').attachFile(
-        {
-          fileContent: fileContent,
-          fileName: fileName,
-          mimeType: "image/png",
-        },
-        { subjectType: "input" }
-      );
-    });
+    fileUpload();
 
     cy.get("#img-area").click();
     cy.get("body").trigger("keydown", { keyCode: 46 }); // delete 키 누르기
@@ -129,20 +98,18 @@ describe("Thumbnail Creator 앱 테스트", () => {
   });
 
   it("랜덤 버튼 클릭 시 썸네일 배경색이 변경된다", () => {
-    let prevBackgroundColor = null;
-    cy.get("#thumbnail-area") // 특정 div를 선택합니다. 셀렉터는 애플리케이션에 맞게 수정해야 합니다.
-      .then(($div) => {
-        prevBackgroundColor = $div.css("background"); // 변경된 배경색을 가져옵니다.
-      });
+    let prevBackgroundColor = "";
+    cy.get("#thumbnail-area").then(($div) => {
+      prevBackgroundColor = $div.css("background");
+    });
 
-    cy.get("#btn-random").click(); // 버튼을 클릭합니다.
+    cy.get("#btn-random").click();
 
     // 변경된 배경색 확인
-    cy.get("#thumbnail-area") // 특정 div를 선택합니다. 셀렉터는 애플리케이션에 맞게 수정해야 합니다.
-      .then(($div) => {
-        const updatedBackgroundColor = $div.css("background"); // 변경된 배경색을 가져옵니다.
-        expect(prevBackgroundColor).not.to.eq(updatedBackgroundColor);
-      });
+    cy.get("#thumbnail-area").then(($div) => {
+      const updatedBackgroundColor = $div.css("background");
+      expect(prevBackgroundColor).not.to.eq(updatedBackgroundColor);
+    });
   });
 
   it("init 버튼을 클릭했을 때 화면 내에 입력된 문자나 이미지 모두 초기화된다", () => {
