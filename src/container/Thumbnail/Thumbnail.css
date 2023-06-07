@@ -37,17 +37,15 @@ p {
 }
 
 #img-area {
-  width: 115px;
-  height: 115px;
+  width: 105px;
+  height: 105px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px;
+  margin: 40px auto 15px auto;
 }
 
 #img-div {
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
   background-size: cover;
   background-position: center;
 }
