@@ -3,31 +3,30 @@ body {
 }
 
 p {
-  font-size: 50px;
-  font-weight: 700;
+  font-size: 7vh;
+  font-weight: 900;
 }
 
 #title-area {
   text-align: center;
-  margin: 22px 0;
+  margin: 4vh 0;
   color: #505050;
 }
 
 #btn-area {
   display: block;
   margin-top: 20px;
-  margin-right: 150px;
   text-align: end;
 }
 
 #thumbnail-div {
-  margin: 20px 150px;
+  margin: 20px 0px;
 }
 
 #thumbnail-area {
   display: block;
   padding: 20px;
-  height: 500px;
+  height: 64vh;
   text-align: center;
   background: linear-gradient(#24243e, #2c5364);
 }
@@ -40,7 +39,7 @@ p {
   width: 105px;
   height: 105px;
   display: block;
-  margin: 40px auto 15px auto;
+  margin: 10vh auto 7px auto;
 }
 
 #img-div {
@@ -57,7 +56,7 @@ p {
 }
 
 #heading {
-  font-size: 70px;
+  font-size: calc(3.5vw + 10px);
   border: 0px;
   text-align: center;
   font-weight: 600;
@@ -68,7 +67,7 @@ p {
 }
 
 #subheading {
-  font-size: 40px;
+  font-size: calc(1.5vw + 10px);
   border: 0px;
   text-align: center;
   font-weight: 600;
