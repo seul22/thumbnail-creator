@@ -130,7 +130,7 @@ const Thumbnail = () => {
   const saveImg = (url: string) => {
     let link: HTMLAnchorElement = document.createElement("a");
     link.href = url;
-    link.download = "files";
+    link.download = `${heading}_${subheading}`;
 
     document.body.appendChild(link);
     link.click();
@@ -188,7 +188,7 @@ const Thumbnail = () => {
           style={{ marginRight: "5px" }}
           onClick={clickChangeBackgroundBtn}
         >
-          <img src={randomImg} style={{ width: "23px" }}></img>
+          <img src={randomImg} style={{ width: "23px" }} alt="random_img"></img>
         </button>
         <button
           type="button"
