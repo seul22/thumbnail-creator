@@ -26,7 +26,7 @@ p {
 #thumbnail-area {
   display: block;
   padding: 20px;
-  height: 64vh;
+  height: 66vh;
   text-align: center;
   background: linear-gradient(#24243e, #2c5364);
 }
@@ -39,7 +39,7 @@ p {
   width: 105px;
   height: 105px;
   display: block;
-  margin: 10vh auto 7px auto;
+  margin: 9.5vh auto 7px auto;
 }
 
 #img-div {
@@ -56,7 +56,7 @@ p {
 }
 
 #heading {
-  font-size: calc(4vw + 10px);
+  font-size: calc(4.5vw + 10px);
   border: 0px;
   text-align: center;
   font-weight: 600;
@@ -67,7 +67,7 @@ p {
 }
 
 #subheading {
-  font-size: calc(2vw + 10px);
+  font-size: calc(2.5vw + 10px);
   border: 0px;
   text-align: center;
   font-weight: 600;
