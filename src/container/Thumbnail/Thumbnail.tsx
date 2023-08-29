@@ -76,7 +76,7 @@ const Thumbnail = () => {
   };
 
   /** save 버튼 클릭 */
-  const clickSaveBtn = (): void => {
+  const clickSaveBtn = async (): Promise<void> => {
     const thumbnail: HTMLElement | null =
       document.querySelector("#thumbnail-area");
 
@@ -101,7 +101,10 @@ const Thumbnail = () => {
           imgAreaElement.style.visibility = "hidden";
         }
 
-        toPng(thumbnail).then((image) => {
+        await toPng(thumbnail);
+        await toPng(thumbnail);
+        await toPng(thumbnail);
+        await toPng(thumbnail).then((image) => {
           saveImg(image);
           // 저장 후 input 요소들의 visibility를 다시 visible로 바꿈
           headingElement.style.visibility = "visible";
